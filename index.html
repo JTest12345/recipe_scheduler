@@ -447,6 +447,10 @@
         <div id="receiptPhotoPreview" class="receipt-photo-preview"></div>
         <button id="receiptPhotoBtn" class="primary-btn small">📷 レシート写真</button>
       </div>
+      <p class="modal-hint receipt-hint">
+        撮った写真は<b>画像として記録に保存</b>されます（文字は自動では読み取りません）。<br>
+        金額を明細に入れたいときは、iPhoneの<b>ライブテキスト</b>でレシートの文字をコピーし、下の欄に貼り付けて「解析」を押してください。
+      </p>
 
       <label class="form-label">レシートのライブテキストを貼り付け（任意）
         <textarea id="receiptPasteArea" class="form-input" rows="4" placeholder="iPhoneの「ライブテキスト」でレシートの文字をコピー → ここに貼り付け → 下の「解析」を押すと明細に自動反映します（要確認）"></textarea>
@@ -473,6 +477,7 @@
 
       <div class="modal-actions">
         <button id="savePurchaseBtn" class="primary-btn full-width">保存</button>
+        <button class="tool-btn" style="width:100%;padding:12px;" data-close="purchaseModal" type="button">閉じる（保存しない）</button>
         <button id="deletePurchaseBtn" class="danger-btn full-width hidden">この記録を削除</button>
       </div>
     </div>

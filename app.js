@@ -2086,7 +2086,8 @@ function hideUploadingOverlay() {
 // モーダル共通
 // ===================================================================
 function bindModals() {
-  document.querySelectorAll('.modal-close').forEach(btn => {
+  // data-close を持つ全要素で閉じられるようにする（✕ボタン・下部の閉じるボタン等）
+  document.querySelectorAll('[data-close]').forEach(btn => {
     btn.addEventListener('click', () => hideModal(btn.dataset.close));
   });
   document.querySelectorAll('.modal').forEach(modal => {
@@ -2096,14 +2097,29 @@ function bindModals() {
   });
 }
 
+// モーダルは「開いた順」に重ねる。
+// （HTMLの記述順に依存すると、記録モーダルの上に写真選択モーダルを開いたときに
+//   後ろに隠れてしまうため。z-indexを動的に積み上げる）
+const MODAL_BASE_Z = 100;
+let modalStack = [];
+
 function showModal(id) {
-  document.getElementById(id).classList.remove('hidden');
+  const el = document.getElementById(id);
+  if (!el) return;
+  if (!modalStack.includes(id)) modalStack.push(id);
+  el.style.zIndex = String(MODAL_BASE_Z + modalStack.indexOf(id) * 10);
+  el.classList.remove('hidden');
   document.body.style.overflow = 'hidden';
 }
 
 function hideModal(id) {
-  document.getElementById(id).classList.add('hidden');
-  document.body.style.overflow = '';
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.classList.add('hidden');
+  el.style.zIndex = '';
+  modalStack = modalStack.filter(m => m !== id);
+  // まだ他のモーダルが開いている間は背景スクロールを止めたままにする
+  if (modalStack.length === 0) document.body.style.overflow = '';
 }
 
 // ===================================================================

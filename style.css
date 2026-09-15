@@ -580,12 +580,16 @@ input, textarea, select { font-family: inherit; font-size: 16px; color: var(--te
 @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 
 .modal-close {
-  position: absolute; top: 12px; right: 12px;
-  width: 32px; height: 32px; border-radius: 50%;
-  background: var(--chip-bg); color: var(--text-mid); font-size: 0.9rem;
-  z-index: 1;
+  position: absolute; top: 10px;
+  /* iPhoneの画面端ギリギリを避ける（横向き時のセーフエリアも考慮） */
+  right: calc(14px + env(safe-area-inset-right));
+  width: 44px; height: 44px; border-radius: 50%;
+  background: var(--chip-bg); color: var(--text-mid); font-size: 1.05rem;
+  display: flex; align-items: center; justify-content: center;
+  z-index: 2;
 }
-.modal-title { font-size: 1.15rem; margin-bottom: 16px; padding-right: 36px; color: var(--text); }
+.modal-close:active { background: var(--border); }
+.modal-title { font-size: 1.15rem; margin-bottom: 16px; padding-right: 56px; color: var(--text); }
 .modal-actions { display: flex; flex-direction: column; gap: 8px; margin-top: 16px; }
 .modal-hint { font-size: 0.85rem; color: var(--text-sub); margin-bottom: 12px; line-height: 1.5; }
 
@@ -773,6 +777,10 @@ input, textarea, select { font-family: inherit; font-size: 16px; color: var(--te
 .purchase-sub { font-size: 0.78rem; color: var(--text-sub); margin-top: 2px; }
 .purchase-amount { font-size: 1.05rem; font-weight: 700; color: var(--accent); white-space: nowrap; }
 
+.receipt-hint {
+  background: var(--chip-bg); border-radius: 8px;
+  padding: 10px 12px; margin-bottom: 14px; font-size: 0.8rem;
+}
 .receipt-photo-area { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
 .receipt-photo-preview {
   width: 72px; height: 72px; border-radius: 8px; flex-shrink: 0;
